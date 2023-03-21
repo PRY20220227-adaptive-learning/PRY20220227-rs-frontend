@@ -12,10 +12,12 @@ function LoginForm() {
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    setUsernameError('');
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setPasswordError('');
   };
 
   const handleSubmit = async (event) => {
