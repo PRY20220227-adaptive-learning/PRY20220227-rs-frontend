@@ -15,7 +15,7 @@ export default class LoginService {
     }
   }
 
-  async getUserRecomendations() {
+  /*async getUserRecomendations() {
     try {
       const response = await fetch('http://localhost:9090/', {
         method: 'GET',
@@ -28,7 +28,7 @@ export default class LoginService {
     } catch (error) {
       console.error(error);
     }
-  }
+  }*/
 }
 
 export const createReceipt = async (body) => {
