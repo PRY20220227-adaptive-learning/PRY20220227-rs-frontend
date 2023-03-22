@@ -4,7 +4,7 @@ function Footer() {
       <div className="w-full container mx-auto p-4 md:px-6 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <p className="flex items-center mb-4 sm:mb-0">
-            <img src="https://uploads-ssl.webflow.com/5fa58eb04302c6e6eb23144c/606f0d2525ffe2f3890c12bc_noun_AI_3498942.png" className="h-11 mr-1.5" alt="Flowbite Logo" />
+            <img src="logo.png" className="h-11 mr-1.5" alt="logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap">RecSystem</span>
           </p>
           <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0">
