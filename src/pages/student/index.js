@@ -12,13 +12,13 @@ function Student() {
       <Header />
       <h1 className="text-3xl font-semibold text-sky-700 mt-10 mb-5">Recursos de aprendizaje</h1>
       <p className="text-lg font-medium text-left mb-4 mx-6">Recursos recomendados:</p>
-      <div className="px-9 pt-9 pb-5 mx-20 bg-sky-200 rounded-lg shadow-lg">
+      <div className="px-9 pt-9 pb-5 mx-20 mb-4 bg-sky-200 rounded-lg shadow-lg">
         <ul className="text-left">
           {
             json.map(resource => (
               <li className="mb-4" key={resource.resName}>
                 <h1 className="font-medium">{resource.resName}</h1>
-                <p className="italic">{resource.resUrl}</p>
+                <a href={resource.resUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{resource.resUrl}</a>
               </li>
             ))
           }

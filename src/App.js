@@ -10,14 +10,16 @@ import TeacherHome from './pages/teacher/index';
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/student-home" element={<StudentHome />} />
-        <Route path="/teacher-home" element={<TeacherHome />} />
-        <Route path="/page-not-found" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="page-not-found" />} />
-      </Routes>
+      <div className='main'>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/student-home" element={<StudentHome />} />
+          <Route path="/teacher-home" element={<TeacherHome />} />
+          <Route path="/page-not-found" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="page-not-found" />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
