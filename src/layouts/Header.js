@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const navigate = useNavigate()
+  const userData = JSON.parse(localStorage.getItem('user'));
   const json = {
-    name: "Maryori Bautista",
-    subject: "Basic English 1",
+    name: userData.name + ' ' + userData.lastname,
+    subject: userData.course,
   }
   const handleLogout = () => {
+    localStorage.clear()
     navigate('/login');
   }
   return (

@@ -1,90 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from "../../layouts/Header";
-import ResourceModal from "./ResourceModal"
+import ResourceModal from "./ResourceModal";
+import { getStudentsByclass } from '../../services/TeacherService';
+import { getRecommendationsHistoryById } from '../../services/StudentService';
 
 function Teacher() {
 
+  const userData = JSON.parse(localStorage.getItem('user'));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedResources, setSelectedResources] = useState([]);
+  const [studentsList, setStudentsList] = useState([]);
 
-  const json = [
-    {
-      studentName: "Maryori Bautista",
-      studentLevel: "Intermedio",
-      learningStyle: "Lectura/Escritura",
-      recResources: [
-        {
-          resName: "PDF-Adjetives",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        },
-        {
-          resName: "PPT- Present perfect",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        },
-        {
-          resName: "PDF - First conditional",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        }
-      ]
-    },
-    {
-      studentName: "Johana Campos",
-      studentLevel: "Avanzado",
-      learningStyle: "Visual",
-      recResources: [
-        {
-          resName: "Video-Past Present",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        },
-        {
-          resName: "Video-Past Present",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        },
-        {
-          resName: "Video-Past Present",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        }
-      ]
-    },
-    {
-      studentName: "Andrew Dulanto",
-      studentLevel: "Básico",
-      learningStyle: "Auditivo",
-      recResources: [
-        {
-          resName: "Audio-Present Simple",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        },
-        {
-          resName: "Audio-Present Simple",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        },
-        {
-          resName: "Audio-Present Simple",
-          resUrl: "https://www.youtube.com/watch?v=VLj-Dbz-CWk"
-        }
-      ]
-    },
-    {
-      studentName: "Balto Alfaro",
-      studentLevel: "Avanzado",
-      learningStyle: "Kinestesico",
-      recResources: [
-        {
-          resName: "Dinámica-Present Simple",
-          resUrl: "https://www.youtube.com/watch?v=agawqrqk"
-        },
-        {
-          resName: "Dinámica-Present Simple",
-          resUrl: "https://www.youtube.com/watch?v=agawqrqk"
-        },
-        {
-          resName: "Dinámica-Present Simple",
-          resUrl: "https://www.youtube.com/watch?v=agawqrqk"
-        }
-      ]
-    },
-  ];
+  const handleStudents = useCallback(async (event) => {
+    const responseList = await getStudentsByclass(userData.class_)
+    setStudentsList(responseList);
+  }, [userData.class_]);
+
+  useEffect(() => {
+    handleStudents();
+  }, [handleStudents]);
+
+  const handleResourceByStudent = async (user_id) => {
+    const resourcesList = await getRecommendationsHistoryById(user_id);
+    if (resourcesList && resourcesList.length > 0) {
+      setSelectedResources(resourcesList);
+    } else {
+      setSelectedResources([]);
+    }
+  };
 
   return (
     <div className="mx-auto w-full container">
@@ -95,16 +39,16 @@ function Teacher() {
           <div className="text-lg font-bold">Estudiante</div>
           <div className="text-lg font-bold">Nivel de conocimientos</div>
           <div className="text-lg font-bold"> Estilo de aprendizaje</div>
-          <div className="text-lg font-bold">Recursos de recomendación</div>
+          <div className="text-lg font-bold">Recursos recomendados</div>
         </div>
         <div className="grid grid-cols-4 gap-4">
-          {json.map(item => (
-            <React.Fragment key={item.studentName}>
-              <div>{item.studentName}</div>
-              <div>{item.studentLevel}</div>
-              <div>{item.learningStyle}</div>
+          {studentsList.map(student => (
+            <React.Fragment key={student.user_id}>
+              <div>{student.name} {student.lastname}</div>
+              <div>{student.knowledge_level}</div>
+              <div>{student.learning_style}</div>
               <div>
-                <button onClick={() => { setIsModalOpen(true); setSelectedResources(item.recResources); }}
+                <button onClick={() => { setIsModalOpen(true); handleResourceByStudent(student.user_id); }}
                   className="bg-sky-600 p-1.5 rounded-md shadow-md text-white hover:bg-sky-700">
                   Ver recursos
                 </button>

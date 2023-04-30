@@ -9,13 +9,13 @@ function Footer() {
           </p>
           <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0">
             <li>
-              <p className="mr-4 hover:underline md:mr-6 ">Sobre nosotros</p>
+              <p className="mr-4 hover:underline cursor-pointer md:mr-6">Sobre nosotros</p>
             </li>
             <li>
-              <p className="mr-4 hover:underline md:mr-6">Politica de privacidad</p>
+              <p className="mr-4 hover:underline cursor-pointer md:mr-6">Politica de privacidad</p>
             </li>
             <li>
-              <p className="hover:underline">Contacto</p>
+              <p className="hover:underline cursor-pointer">Contacto</p>
             </li>
           </ul>
         </div>

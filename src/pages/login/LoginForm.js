@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginService from '../../services/LoginService';
+import { authenticateUser } from '../../services/LoginService';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -35,14 +35,14 @@ function LoginForm() {
       }
 
       if (username !== "" && password !== "") {
-        // Call a function to handle the login logic here
-        // COMPLETAR CON LLAMADA A API
-        console.log("Username", username);
-        console.log("Password", password);
-        const data = await LoginService.authenticateUser({ username: username, password: password });
-        console.log(data);
-        if (data !== "") {
+        const data = await authenticateUser({ username: username, password: password });
+        if (data.user_id !== null && data.user_id !== undefined) {
+          localStorage.setItem('user', JSON.stringify(data));
           navigate('/student-home');
+        }
+        if (data.user_id !== null && data.learning_style === null) {
+          localStorage.setItem('user', JSON.stringify(data));
+          navigate('/teacher-home');
         }
       }
     } catch (error) {
