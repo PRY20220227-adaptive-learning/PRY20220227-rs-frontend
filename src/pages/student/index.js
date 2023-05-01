@@ -7,6 +7,7 @@ function Student() {
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedOptionName, setSelectedOptionName] = useState(null);
+  const [recommendedTopic, setRecommendedTopic] = useState(null);
   const [resourcesData, setResourcesData] = useState(null);
 
   const options = {
@@ -42,9 +43,10 @@ function Student() {
       subject: selectedOption
     });
     setResourcesData(resourcesRes);
+    setRecommendedTopic(selectedOptionName);
   };
 
-  const exampleData = //ELIMINAR CUANDO resourceData DEJE DE SER 
+  const exampleData = //ELIMINAR CUANDO resourceData DEJE DE SER SOLO UNO
     [
       "https://www.khanacademy.org/math/algebra",
       "https://www.khanacademy.org/math/geometry",
@@ -79,11 +81,11 @@ function Student() {
       {resourcesData !== null && (
         <div>
           <div className="px-9 pt-9 pb-5 mx-20 mb-4 bg-sky-200 rounded-lg shadow-lg">
+            <h1 className="font-semibold text-left mb-2 text-lg">{recommendedTopic ? `Tema - ${recommendedTopic}` : "Recursos de aprendizaje"}</h1>
             <ul className="text-left">
               {exampleData.map(resource => ( //CAMBIAR POR resourceData
                 <li className="mb-4" key={resource}>
-                  <h1 className="font-medium">Tema - {selectedOptionName}</h1>
-                  <a href={resource} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{resource}</a>
+                  <span>● <a href={resource} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{resource}</a></span>
                 </li>
               ))}
             </ul>
